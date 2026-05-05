@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbxsmz84g7Xn-y1D-x0VT8TxW7B8sO9hmAhJMjVnDEkvqguvp4I82Fnb3HFf4RrS2Nswcg/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbw0fof7gf4HmSX_VkZ5YROsJ1TuzzCQS-fuR7_qJNv6kik95kTROA_J0lUOudZ2JHBmuQ/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -1050,6 +1050,51 @@ function App(){
             contatta il team di ricerca.
           </p>
         </div>
+
+        {/* ── EMAIL OPT-IN ─────────────────────────────────── */}
+        <div style={{marginTop:24,background:"#f8f0ff",borderRadius:14,
+          padding:"18px",border:"1.5px solid #d8c8f0",textAlign:"left"}}>
+          <p style={{fontSize:11,fontWeight:"700",color:"#8866aa",marginBottom:8,letterSpacing:1}}>
+            RESTA AGGIORNATO/A — FACOLTATIVO
+          </p>
+          <p style={{fontSize:12,color:"#6a5580",lineHeight:1.7,marginBottom:10}}>
+            Se desideri ricevere aggiornamenti sugli esiti dello studio o su altri progetti di ricerca del gruppo ENDOSEX, lascia qui la tua email.
+          </p>
+          <p style={{fontSize:11,color:"#9888b0",lineHeight:1.65,marginBottom:14,
+            fontStyle:"italic",background:"white",borderRadius:8,padding:"8px 12px",
+            border:"1px solid #e8d8f8"}}>
+            ⚠️ <strong>Nota sulla privacy:</strong> questa raccolta avviene in modo del tutto indipendente dalle tue risposte al questionario. La tua email <strong>non verrà mai incrociata</strong> con i dati raccolti — l'anonimato è garantito strutturalmente.
+          </p>
+          {!emailSent?(
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              <input type="email" value={emailOptIn}
+                onChange={e=>setEmailOptIn(e.target.value)}
+                onKeyDown={e=>e.key==="Enter"&&submitEmail()}
+                placeholder="la.tua@email.com"
+                style={{flex:"1 1 200px",padding:"10px 14px",
+                  border:`1.5px solid ${emailOptIn.trim()?"#c0a0e0":"#d8c8f0"}`,
+                  borderRadius:9,fontSize:13,
+                  fontFamily:"'DM Sans',sans-serif",
+                  color:"#3a2a55",background:"white"}}/>
+              <button onClick={submitEmail}
+                disabled={!emailOptIn.trim()||emailBusy}
+                style={{
+                  background:emailOptIn.trim()&&!emailBusy?"#8866aa":"#c8b8e0",
+                  color:"white",border:"none",borderRadius:9,
+                  padding:"10px 20px",fontSize:13,fontWeight:"600",
+                  cursor:emailOptIn.trim()&&!emailBusy?"pointer":"default",
+                  fontFamily:"'DM Sans',sans-serif",whiteSpace:"nowrap",
+                  transition:"background 0.15s"}}>
+                {emailBusy?"Invio…":"Iscriviti →"}
+              </button>
+            </div>
+          ):(
+            <p style={{fontSize:13,color:"#8866aa",fontWeight:"600",textAlign:"center"}}>
+              ✓ Email registrata — grazie per il tuo interesse!
+            </p>
+          )}
+        </div>
+
       </div>
     </div>
   );
