@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbzmxz4YnwAegHJSx9OGG_bEjg1UAxUrP84YAtQwUDl_4pOQsPlYqMHwfwlv2kvs02gCGg/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbw_NZ-ov4rhQR-JIA8VBf109INf9n4oM-rir7qNpfQ/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -490,7 +490,7 @@ function App(){
 
   /* Desire state */
   const [desireConv,setDesireConv]=useState("");
-  const [desirePersonal,setDesirePersonal]=useState("");
+  const [desirePersonals,setDesirePersonals]=useState([""]); // array of personal definitions
   const [desireDiff,setDesireDiff]=useState(null);
 
   /* Submission */
@@ -542,7 +542,7 @@ function App(){
       bfi_O:bfiScore(BFI.filter(i=>i.d==="O")),
       soir_raw:JSON.stringify(soir),
       desireConventional:desireConv,
-      desirePersonal:desirePersonal,
+      desirePersonal:JSON.stringify(desirePersonals.filter(s=>s.trim().length>0)),
       desireDifferent:desireDiff,
     };
     try{
@@ -908,7 +908,7 @@ function App(){
           </div>
         </div>
 
-        {/* C: Personal perception (optional) */}
+        {/* C: Personal perception — dynamic list */}
         <div style={{marginBottom:8,padding:"18px",background:"#fafefe",
           borderRadius:14,border:"1.5px solid #e8eeee"}}>
           <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
@@ -919,19 +919,44 @@ function App(){
               <p style={{fontSize:14,color:INK,fontWeight:"600",lineHeight:1.4}}>
                 Come percepisci <em>personalmente</em> il desiderio sessuale?
               </p>
-              <span style={{fontSize:11,color:"#b0cac9"}}>facoltativo</span>
+              <span style={{fontSize:11,color:"#b0cac9"}}>facoltativo · puoi aggiungere più voci</span>
             </div>
           </div>
           <p style={{fontSize:12,color:"#9aabaa",lineHeight:1.65,marginBottom:12,paddingLeft:40}}>
-            Descrivi con parole tue come senti e vivi il desiderio sessuale. Puoi includere aspetti emotivi, fisici, cognitivi, relazionali — qualsiasi elemento ti sembri rilevante.
+            Descrivi con parole tue come senti e vivi il desiderio sessuale. Puoi includere aspetti emotivi, fisici, cognitivi, relazionali — qualsiasi elemento ti sembri rilevante. Se vuoi fornire più di una definizione, usa il pulsante sotto.
           </p>
-          <textarea value={desirePersonal} onChange={e=>setDesirePersonal(e.target.value)}
-            placeholder="Scrivi qui la tua esperienza personale… (facoltativo)"
-            rows={4}
-            style={{width:"100%",padding:"12px 14px",
-              border:"1.5px solid #d4e8e7",borderRadius:10,
-              fontSize:13,fontFamily:"'DM Sans',sans-serif",
-              lineHeight:1.65,color:INK,background:"white"}}/>
+          {desirePersonals.map((def,i)=>(
+            <div key={i} style={{marginBottom:10,position:"relative"}}>
+              {desirePersonals.length>1&&(
+                <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+                  <span style={{fontSize:11,color:"#c87040",fontWeight:"600"}}>Definizione {i+1}</span>
+                  <button onClick={()=>setDesirePersonals(desirePersonals.filter((_,j)=>j!==i))}
+                    style={{background:"none",border:"none",cursor:"pointer",color:"#e05c5c",
+                      fontSize:16,lineHeight:1,padding:"0 4px",fontFamily:"'DM Sans',sans-serif"}}>
+                    ×
+                  </button>
+                </div>
+              )}
+              <textarea value={def} onChange={e=>{
+                  const next=[...desirePersonals];
+                  next[i]=e.target.value;
+                  setDesirePersonals(next);
+                }}
+                placeholder={`Definizione personale${i===0?" (facoltativa)":""}…`}
+                rows={3}
+                style={{width:"100%",padding:"12px 14px",
+                  border:"1.5px solid #d4e8e7",borderRadius:10,
+                  fontSize:13,fontFamily:"'DM Sans',sans-serif",
+                  lineHeight:1.65,color:INK,background:"white"}}/>
+            </div>
+          ))}
+          <button onClick={()=>setDesirePersonals([...desirePersonals,""])}
+            style={{marginTop:4,background:"white",border:`1.5px dashed ${TL}`,
+              borderRadius:9,padding:"9px 16px",cursor:"pointer",
+              fontSize:12,color:TD,fontWeight:"600",fontFamily:"'DM Sans',sans-serif",
+              display:"flex",alignItems:"center",gap:6}}>
+            <span style={{fontSize:16,lineHeight:1}}>+</span> Aggiungi un'altra definizione
+          </button>
         </div>
 
         {errMsg&&<p style={{color:CR,fontSize:13,textAlign:"center",marginTop:14}}>{errMsg}</p>}
