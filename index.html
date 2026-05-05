@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbyDiEw4BhREQpkPAH-l5m7PPguN9NRFAaM-vie66-JtlXu3cofNzwRt5qa8RX5rre7RJQ/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbxsmz84g7Xn-y1D-x0VT8TxW7B8sO9hmAhJMjVnDEkvqguvp4I82Fnb3HFf4RrS2Nswcg/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -470,6 +470,16 @@ function App(){
   const [consent,setConsent]=useState(false);
   const scrollRef=useRef(null);
 
+  /* ── TIMING ──────────────────────────────────────────────── */
+  const phaseStartRef=useRef(null);   // timestamp (ms) when current phase began
+  const prevPhaseRef=useRef(null);    // previous phase name
+  const durRef=useRef({});            // accumulated seconds per phase
+
+  /* ── EMAIL OPT-IN ────────────────────────────────────────── */
+  const [emailOptIn,setEmailOptIn]=useState("");
+  const [emailSent,setEmailSent]=useState(false);
+  const [emailBusy,setEmailBusy]=useState(false);
+
   /* XYGO state */
   const [sex,setSex]=useState(null);
   const [age,setAge]=useState("");
@@ -513,8 +523,39 @@ function App(){
 
   const bfiCount=Object.keys(bfi).length;
 
+  /* Submit email opt-in as a SEPARATE anonymous call (no participant data) */
+  const submitEmail=async()=>{
+    if(!emailOptIn.trim()||emailBusy||emailSent) return;
+    setEmailBusy(true);
+    try{
+      await fetch(WEBHOOK,{method:"POST",mode:"no-cors",
+        headers:{"Content-Type":"text/plain"},
+        body:JSON.stringify({
+          type:"email_optin",
+          timestamp:new Date().toISOString(),
+          email:emailOptIn.trim(),
+        })
+      });
+      setEmailSent(true);
+    }catch(_){}
+    finally{setEmailBusy(false);}
+  };
+
   /* Scroll to top on phase change */
   useEffect(()=>{window.scrollTo({top:0,behavior:"smooth"});},[phase]);
+
+  /* Timing: record duration of each phase on transition */
+  useEffect(()=>{
+    const now=Date.now();
+    const prev=prevPhaseRef.current;
+    // Don't record splash (user may leave it open a long time)
+    if(prev && prev!=="splash" && phaseStartRef.current!==null){
+      const sec=Math.round((now-phaseStartRef.current)/1000);
+      durRef.current[prev]=(durRef.current[prev]||0)+sec;
+    }
+    prevPhaseRef.current=phase;
+    phaseStartRef.current=now;
+  },[phase]);
 
   /* BFI domain scoring */
   const bfiScore=items=>items.reduce((acc,item)=>{
@@ -544,6 +585,18 @@ function App(){
       desireConventional:desireConv,
       desirePersonal:JSON.stringify(desirePersonals.filter(s=>s.trim().length>0)),
       desireDifferent:desireDiff,
+      // Timing (seconds per phase)
+      time_sex:       durRef.current.sex       || 0,
+      time_identity:  durRef.current.identity  || 0,
+      time_drawG:     durRef.current.drawG     || 0,
+      time_drawO:     durRef.current.drawO     || 0,
+      time_bfi_0:     durRef.current.bfi_0     || 0,
+      time_bfi_1:     durRef.current.bfi_1     || 0,
+      time_bfi_2:     durRef.current.bfi_2     || 0,
+      time_bfi_3:     durRef.current.bfi_3     || 0,
+      time_soir:      durRef.current.soir      || 0,
+      time_desire:    durRef.current.desire    || 0,
+      time_total:     Object.values(durRef.current).reduce((a,b)=>a+b,0),
     };
     try{
       await fetch(WEBHOOK,{method:"POST",mode:"no-cors",
