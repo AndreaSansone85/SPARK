@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbw0fof7gf4HmSX_VkZ5YROsJ1TuzzCQS-fuR7_qJNv6kik95kTROA_J0lUOudZ2JHBmuQ/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbw3oE2_VroYp3WaGct6tzJ46DShovR1YvxyhO6QBWKlTWcpHGHioeGhS_pmgz3AWCkhFw/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -479,6 +479,7 @@ function App(){
   const [emailOptIn,setEmailOptIn]=useState("");
   const [emailSent,setEmailSent]=useState(false);
   const [emailBusy,setEmailBusy]=useState(false);
+  const [referral,setReferral]=useState("");
 
   /* XYGO state */
   const [sex,setSex]=useState(null);
@@ -544,6 +545,13 @@ function App(){
   /* Scroll to top on phase change */
   useEffect(()=>{window.scrollTo({top:0,behavior:"smooth"});},[phase]);
 
+  /* Referral: read ?ref= URL parameter on mount */
+  useEffect(()=>{
+    const params=new URLSearchParams(window.location.search);
+    const ref=params.get("ref")||params.get("utm_source")||"";
+    if(ref) setReferral(ref.trim().toLowerCase().slice(0,64));
+  },[]);
+
   /* Timing: record duration of each phase on transition */
   useEffect(()=>{
     const now=Date.now();
@@ -568,6 +576,7 @@ function App(){
     setBusy(true); setErrMsg("");
     const payload={
       timestamp:new Date().toISOString(),
+      referral:referral||"direct",
       sex, age, notation,
       genderLabel: genderLbl===gLast?genderOth:genderLbl,
       orientLabel: orientLbl===oLast?orientOth:orientLbl,
