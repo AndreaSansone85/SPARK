@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-  <title>Studio sul Desiderio Sessuale</title>
+  <title>SPARK2b – Studio sul Desiderio Sessuale</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbw3oE2_VroYp3WaGct6tzJ46DShovR1YvxyhO6QBWKlTWcpHGHioeGhS_pmgz3AWCkhFw/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbw_NZ-ov4rhQR-JIA8VBf109INf9n4oM-rir7qNpfQ/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -510,8 +510,34 @@ function App(){
 
   const notation=buildNotation(sex,gVals,fluidG,oVals,fluidO);
 
-  const GENDER_OPTS=["Cisgender","Transgender","Agender","Senza genere","Pangender","Gender fluid","Altro…"];
-  const ORIENT_OPTS=["Eterosessuale","Omosessuale","Asessuale","Pansessuale","Bisessuale","Altro…"];
+  const GENDER_OPTS_M=[
+    "Cisgender (mi identifico come maschio)",
+    "Parzialmente cisgender (mi identifico parzialmente come maschio)",
+    "Agender (non mi identifico né come maschio, né come femmina)",
+    "Senza genere (non mi identifico in alcun genere)",
+    "Parzialmente transgender (mi identifico parzialmente come donna)",
+    "Transgender (mi identifico completamente come donna)",
+    "Pangender (mi identifico come ogni genere)",
+    "Gender fluid (non mi identifico stabilmente in un solo genere)",
+    "Altro…"
+  ];
+  const GENDER_OPTS_F=[
+    "Cisgender (mi identifico come femmina)",
+    "Parzialmente cisgender (mi identifico parzialmente come femmina)",
+    "Agender (non mi identifico né come femmina, né come maschio)",
+    "Senza genere (non mi identifico in alcun genere)",
+    "Parzialmente transgender (mi identifico parzialmente come uomo)",
+    "Transgender (mi identifico completamente come uomo)",
+    "Pangender (mi identifico come ogni genere)",
+    "Gender fluid (non mi identifico stabilmente in un solo genere)",
+    "Altro…"
+  ];
+  const GENDER_OPTS=sex==="X"?GENDER_OPTS_F:GENDER_OPTS_M;
+  const ORIENT_OPTS=[
+    "Eterosessuale","Parzialmente eterosessuale",
+    "Omosessuale","Parzialmente omosessuale",
+    "Asessuale","Pansessuale","Bisessuale","Altro…"
+  ];
   const gLast=GENDER_OPTS[GENDER_OPTS.length-1];
   const oLast=ORIENT_OPTS[ORIENT_OPTS.length-1];
 
@@ -646,6 +672,10 @@ function App(){
           <p style={{fontSize:13,color:"#3a5c5b",lineHeight:1.75}}>
             Il questionario richiede circa <strong>15 minuti</strong>. Puoi interrompere in qualsiasi momento senza conseguenze. Non esistono risposte giuste o sbagliate.
           </p>
+          <p style={{fontSize:13,color:"#3a5c5b",lineHeight:1.75,marginTop:10,
+            padding:"10px 12px",background:"#e8f4f3",borderRadius:8}}>
+            🏛️ Lo studio è stato approvato dal <strong>Comitato Etico dell'Università degli Studi di Roma "Tor Vergata"</strong>. Responsabile dello studio: <strong>Prof. Emmanuele A. Jannini</strong>.
+          </p>
         </div>
 
         <div style={{background:"#fffaf0",borderRadius:10,padding:"12px 14px",marginBottom:20,
@@ -685,6 +715,18 @@ function App(){
         <p style={{color:"#8aabaa",fontSize:13,marginBottom:22}}>
           Seleziona il simbolo che meglio rappresenta il tuo sesso assegnato alla nascita.
         </p>
+        <div style={{marginBottom:22}}>
+          <label style={{fontSize:13,color:"#6a8a89",fontWeight:"600",display:"block",marginBottom:8}}>
+            Età <span style={{color:CR,marginLeft:2}}>*</span>
+          </label>
+          <input type="number" value={age} onChange={e=>setAge(e.target.value)}
+            min={18} max={99} placeholder="—"
+            style={{width:100,padding:"10px 14px",
+              border:`1.5px solid ${age?"#d4e8e7":CR+"88"}`,
+              borderRadius:9,fontSize:14,fontFamily:"'DM Sans',sans-serif",
+              color:"#333",background:"#fafefe"}}/>
+          {!age&&<p style={{fontSize:11,color:CR,marginTop:4}}>Campo obbligatorio</p>}
+        </div>
         <div style={{display:"flex",gap:14,marginBottom:18}}>
           {[{val:"X",symbol:"♀",label:"Femmina alla\nnascita (AFAB)"},
             {val:"Y",symbol:"♂",label:"Maschio alla\nnascita (AMAB)"}].map(opt=>(
@@ -703,7 +745,7 @@ function App(){
         <p style={{fontSize:11,color:"#b0cac9",lineHeight:1.6,marginBottom:4}}>
           Le persone con DSD o condizioni aneuploidi possono scegliere il simbolo corrispondente al fenotipo prevalente.
         </p>
-        <NavButtons onBack={()=>setPhase("splash")} onNext={()=>setPhase("identity")} nextDisabled={!sex}/>
+        <NavButtons onBack={()=>setPhase("splash")} onNext={()=>setPhase("drawG")} nextDisabled={!sex||!age}/>
       </div>
     </div>
   );
@@ -726,19 +768,12 @@ function App(){
     return(
       <div style={wrap}>
         <div style={card}>
-          <StepDots current={1} total={10}/>
+          <StepDots current={3} total={10}/>
           <SectionBadge color={TD} bg={TP} label="XYGO"/>
           <h2 style={{fontFamily:"'DM Serif Display',serif",color:TD,fontSize:22,marginBottom:20}}>
             Informazioni su di te
           </h2>
-          <div style={{marginBottom:22}}>
-            <label style={{fontSize:13,color:"#6a8a89",fontWeight:"600",display:"block",marginBottom:8}}>Età</label>
-            <input type="number" value={age} onChange={e=>setAge(e.target.value)}
-              min={18} max={99} placeholder="—"
-              style={{width:100,padding:"10px 14px",border:"1.5px solid #d4e8e7",
-                borderRadius:9,fontSize:14,fontFamily:"'DM Sans',sans-serif",color:"#333",
-                background:"#fafefe"}}/>
-          </div>
+
           <div style={{marginBottom:22}}>
             <label style={{fontSize:13,color:"#6a8a89",fontWeight:"600",display:"block",marginBottom:10}}>
               Come definisci la tua identità di genere?
@@ -765,7 +800,7 @@ function App(){
                   fontFamily:"'DM Sans',sans-serif",background:"#fafefe"}}/>
             )}
           </div>
-          <NavButtons onBack={()=>setPhase("sex")} onNext={()=>setPhase("drawG")} nextDisabled={!identOk}/>
+          <NavButtons onBack={()=>setPhase("drawO")} onNext={()=>setPhase("bfi_0")} nextDisabled={!identOk}/>
         </div>
       </div>
     );
@@ -775,7 +810,7 @@ function App(){
   if(phase==="drawG") return(
     <div style={wrap}>
       <div style={card}>
-        <StepDots current={2} total={10}/>
+        <StepDots current={1} total={10}/>
         <SectionBadge color={TD} bg={TP} label="XYGO"/>
         <h2 style={{fontFamily:"'DM Serif Display',serif",color:TD,fontSize:22,marginBottom:6}}>
           Identità di genere
@@ -788,7 +823,7 @@ function App(){
         <FluidBox checked={fluidG} onChange={setFluidG}
           label="La mia identità di genere è fluida"
           hint="Se selezionato, i punti scelti vengono mostrati come intervallo continuo."/>
-        <NavButtons onBack={()=>setPhase("identity")} onNext={()=>setPhase("drawO")} nextDisabled={gVals.length===0}/>
+        <NavButtons onBack={()=>setPhase("sex")} onNext={()=>setPhase("drawO")} nextDisabled={gVals.length===0}/>
       </div>
     </div>
   );
@@ -797,7 +832,7 @@ function App(){
   if(phase==="drawO") return(
     <div style={wrap}>
       <div style={card}>
-        <StepDots current={3} total={10}/>
+        <StepDots current={2} total={10}/>
         <SectionBadge color={TD} bg={TP} label="XYGO"/>
         <h2 style={{fontFamily:"'DM Serif Display',serif",color:TD,fontSize:22,marginBottom:6}}>
           Orientamento sessuale
@@ -821,7 +856,7 @@ function App(){
             </div>
           </div>
         )}
-        <NavButtons onBack={()=>setPhase("drawG")} onNext={()=>setPhase("bfi_0")} nextDisabled={oVals.length===0}/>
+        <NavButtons onBack={()=>setPhase("drawG")} onNext={()=>setPhase("identity")} nextDisabled={oVals.length===0}/>
       </div>
     </div>
   );
@@ -832,7 +867,7 @@ function App(){
       const items=BFI_PAGES[pi];
       const isOk=bfiPageOk(pi);
       const nextPhase=pi<3?`bfi_${pi+1}`:"soir";
-      const prevPhase=pi>0?`bfi_${pi-1}`:"drawO";
+      const prevPhase=pi>0?`bfi_${pi-1}`:"identity";
       return(
         <div style={wrap}>
           <div style={card}>
