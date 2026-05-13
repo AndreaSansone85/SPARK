@@ -1107,7 +1107,7 @@ function App(){
     const RadarPlot=({title,vals,color})=>{
       // vals = [corpo, mente, sociale, esperienze] normalized 0-1
       const CX=120,CY=120,R=74;
-      const LABELS=['CORPO','MENTE','SOCIALE','ESPERIENZE'];
+      const LABELS=['🫀','🧠','👥','✨'];
       const ANG=[-Math.PI/2, 0, Math.PI/2, Math.PI]; // top,right,bottom,left
       const pt=(v,a)=>[CX+R*v*Math.cos(a), CY+R*v*Math.sin(a)];
       const gridPts=v=>ANG.map(a=>pt(v,a).join(',')).join(' ');
@@ -1147,8 +1147,8 @@ function App(){
               const ly=CY+LR*Math.sin(ANG[i]);
               return <text key={i} x={lx} y={ly}
                 textAnchor='middle' dominantBaseline='middle'
-                fontSize={9} fontFamily="'DM Sans',sans-serif"
-                fontWeight='700' fill='#3a6665'>{lbl}</text>;
+                fontSize={15} fontFamily="'DM Sans',sans-serif"
+                fontWeight='400' fill='#3a6665'>{lbl}</text>;
             })}
           </svg>
         </div>
@@ -1381,11 +1381,10 @@ function App(){
           <RadarPlot title="RAZIONALE" color={TD}
             vals={[n14(sdB),n14(sdD),n14(sdF),n14(sdH)]}/>
         </div>
-        <div style={{display:"flex",justifyContent:"center",gap:20,marginTop:10,flexWrap:"wrap"}}>
-          {[{c:"#c87040",l:"Irrazionale (A,C,E,G)"},{c:TD,l:"Razionale (B,D,F,H)"}].map(({c,l})=>(
-            <span key={l} style={{fontSize:10,color:c,display:"flex",alignItems:"center",gap:4}}>
-              <span style={{width:12,height:3,background:c,borderRadius:2,display:"inline-block"}}/>
-              {l}
+        <div style={{display:"flex",justifyContent:"center",gap:16,marginTop:12,flexWrap:"wrap"}}>
+          {[{e:'🫀',l:'Corpo'},{e:'🧠',l:'Mente'},{e:'👥',l:'Sociale'},{e:'✨',l:'Esperienze'}].map(({e,l})=>(
+            <span key={l} style={{fontSize:11,color:'#6a8a89',display:'flex',alignItems:'center',gap:4}}>
+              <span style={{fontSize:14}}>{e}</span> {l}
             </span>
           ))}
         </div>
