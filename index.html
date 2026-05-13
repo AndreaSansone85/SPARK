@@ -35,7 +35,7 @@ const BG  = "#f0f5f5";
 const INK = "#2d4544";
 
 /* ── WEBHOOK (same as XYGO project) ─────────────────────────── */
-const WEBHOOK = "https://script.google.com/macros/s/AKfycbxodFJIhzi_mrZaw_VcN-FU7uhnocUDgIBkvR-Hi6vHp9AZgTThJUtqOodQjog5Mh3j2w/exec";
+const WEBHOOK = "https://script.google.com/macros/s/AKfycbwJxYzt67UO27hY1BHFNvxlLCNCnePV3DQpHs_Nrz51cUlUtLGstRF1h1VoOals7urmEA/exec";
 
 /* ── XYGO CONSTANTS ─────────────────────────────────────────── */
 const SZ=320, CX=160, CY=160, U=32;
@@ -496,30 +496,38 @@ function FreqSelect({n,text,value,onChange,opts}){
 }
 
   const SD_ORDER=[
-    {id:1,text:"Il desiderio sessuale è un fenomeno che ha origine principalmente nella mente, attraverso pensieri e fantasie."},
-    {id:10,text:"Il desiderio sessuale è distinto dall\'eccitazione genitale: può esistere l\'uno senza l\'altra."},
-    {id:14,text:"Il desiderio sessuale è modulato dalla qualità della relazione con l\'altra persona (fiducia, complicità, legame affettivo)."},
-    {id:23,text:"Il desiderio sessuale è per sua natura variabile nel tempo e dipendente dal contesto di vita."},
-    {id:3,text:"Il desiderio sessuale è inseparabile dal coinvolgimento emotivo verso chi si desidera."},
-    {id:7,text:"Il desiderio sessuale è riconoscibile attraverso sensazioni fisiche nel corpo (calore, tensione, eccitazione genitale)."},
-    {id:17,text:"Il desiderio sessuale è ancora vissuto con imbarazzo o vergogna nella società contemporanea."},
-    {id:21,text:"Il desiderio sessuale comprende il voler dare piacere all\'altro, non solo riceverlo."},
-    {id:6,text:"Il desiderio sessuale è profondamente influenzato dallo stato emotivo e psicologico della persona."},
-    {id:8,text:"Il desiderio sessuale è fondamentalmente un impulso biologico, analogo a bisogni primari come la fame o la sete."},
-    {id:16,text:"Il desiderio sessuale è plasmato dalla cultura, dall\'educazione e dai valori della società in cui si cresce."},
-    {id:19,text:"Il desiderio sessuale è essenzialmente una ricerca di piacere fisico."},
-    {id:2,text:"Il desiderio sessuale implica necessariamente una connessione mentale con l\'altra persona."},
-    {id:12,text:"Il desiderio sessuale ha una frequenza e un\'intensità proprie, relativamente indipendenti dal contesto relazionale."},
-    {id:18,text:"Il desiderio sessuale può generare conflitto tra ciò che si prova e ciò che si ritiene socialmente accettabile."},
-    {id:22,text:"Il desiderio sessuale è un mezzo per conoscere più profondamente sé stessi."},
-    {id:5,text:"Il desiderio sessuale può manifestarsi in assenza di stimoli fisici diretti, attraverso pensieri, ricordi o immaginazione."},
-    {id:9,text:"Il desiderio sessuale è innescato principalmente da stimoli fisici e sensoriali (aspetto, tatto, odore, voce)."},
-    {id:13,text:"Il desiderio sessuale si alimenta della reciprocità: sapere di essere desiderati intensifica il desiderio stesso."},
-    {id:24,text:"Il desiderio sessuale è una forma di comunicazione profonda con l\'altro, che va oltre le parole."},
-    {id:4,text:"Il desiderio sessuale è un impulso che sfugge al controllo razionale."},
-    {id:11,text:"Il desiderio sessuale può essere espresso e soddisfatto attraverso l\'autoerotismo, indipendentemente da un partner."},
-    {id:15,text:"Il desiderio sessuale è orientato verso una persona specifica, non verso l\'atto sessuale in sé."},
-    {id:20,text:"Il desiderio sessuale è una spinta verso l\'esplorazione e la sperimentazione di esperienze intime."},
+    {id:1,text:"Un\'energia primitiva che sfugge al controllo razionale."},
+    {id:5,text:"La percezione di brividi o pulsazioni fisiche localizzate."},
+    {id:9,text:"Fantasie mentali che nascono in modo spontaneo e incontrollato."},
+    {id:13,text:"Il risultato di una profonda intesa e stima mentale col partner."},
+    {id:17,text:"Il bisogno inconscio di sentirsi desiderabili agli occhi altrui."},
+    {id:21,text:"Uno strumento consapevole per rafforzare il legame di coppia."},
+    {id:25,text:"Un\'emozione riaccesa involontariamente da sensazioni del passato."},
+    {id:29,text:"Un modo di desiderare maturato riflettendo sulle proprie esperienze."},
+    {id:2,text:"Una fame improvvisa o un bisogno fisico impellente."},
+    {id:6,text:"La ricerca attiva di contatto e vicinanza della pelle dell\'altro."},
+    {id:10,text:"Una scarica elettrica mentale che si accende anche in solitudine."},
+    {id:14,text:"La volontà cosciente di esplorare l\'intimità emotiva dell\'altro."},
+    {id:18,text:"Una risposta involontaria alle aspettative sociali esterne."},
+    {id:22,text:"Un atto rituale con un preciso valore simbolico e sociale."},
+    {id:26,text:"Un\'attrazione verso persone che risvegliano schemi emotivi antichi."},
+    {id:30,text:"La capacità appresa di ascoltare i propri bisogni sessuali reali."},
+    {id:3,text:"Un calore viscerale che annebbia la capacità di pensare."},
+    {id:7,text:"Una risposta fisica immediata a uno stimolo sensoriale specifico."},
+    {id:11,text:"Scenari immaginari ideali o \'proibiti\' vissuti internamente."},
+    {id:15,text:"Un\'attrazione legata esclusivamente a stimoli intellettuali."},
+    {id:19,text:"Un impulso condizionato dal senso di \'giusto\' o \'sbagliato\'."},
+    {id:23,text:"L\'espressione di un accordo basato su rispetto e consenso."},
+    {id:27,text:"Brividi viscerali radicati nella propria storia personale profonda."},
+    {id:31,text:"Il frutto della comprensione consapevole di ciò che dà piacere."},
+    {id:4,text:"Un impulso biologico vitale, simile al dormire o al mangiare."},
+    {id:8,text:"Uno stato di attivazione fisica consapevole e definita."},
+    {id:12,text:"Un\'ossessione mentale che distrae dalle attività quotidiane."},
+    {id:16,text:"Una forma di comunicazione profonda che va oltre le parole."},
+    {id:20,text:"Un modo istintivo per affermare la propria identità nel gruppo."},
+    {id:24,text:"Un mezzo per mantenere l\'armonia e l\'equilibrio relazionale."},
+    {id:28,text:"Un desiderio attivato da ricordi sensoriali improvvisi."},
+    {id:32,text:"Un percorso di auto-scoperta che segue la propria crescita personale."},
   ];
 
 /* ── MAIN APP ─────────────────────────────────────────────────── */
@@ -602,7 +610,7 @@ function App(){
 
   const bfiPageOk=pi=>BFI_PAGES[pi].every(item=>bfi[item.n]!==undefined);
   const soirOk=()=>{for(let i=1;i<=9;i++){if(soir[i]===undefined)return false;}return true;};
-  const desireOk=Object.keys(sdItems).length===24;
+  const desireOk=Object.keys(sdItems).length===32;
 
   const bfiCount=Object.keys(bfi).length;
 
@@ -673,15 +681,24 @@ function App(){
       bfi_N:bfiScore(BFI.filter(i=>i.d==="N")),
       bfi_O:bfiScore(BFI.filter(i=>i.d==="O")),
       soir_raw:JSON.stringify(soir),
-      // SD items: original item IDs 1-24
-      ...Object.fromEntries(Array.from({length:24},(_,i)=>[
+      // SD items 1-32 (individual scores)
+      ...Object.fromEntries(Array.from({length:32},(_,i)=>[
         `sd_${i+1}`, sdItems[i+1]||null
       ])),
+      // Sub-category means (A-H, 4 items each)
+      sd_A:    [1,2,3,4].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_B:    [5,6,7,8].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_C:    [9,10,11,12].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_D:    [13,14,15,16].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_E:    [17,18,19,20].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_F:    [21,22,23,24].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_G:    [25,26,27,28].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
+      sd_H:    [29,30,31,32].reduce((s,i)=>s+(sdItems[i]||0),0)/4,
       // Macro-area means (hidden from participant)
-      sd_mente:     [1,2,3,4,5,6].reduce((s,i)=>s+(sdItems[i]||0),0)/6,
-      sd_corpo:     [7,8,9,10,11,12].reduce((s,i)=>s+(sdItems[i]||0),0)/6,
-      sd_societa:   [13,14,15,16,17,18].reduce((s,i)=>s+(sdItems[i]||0),0)/6,
-      sd_esperienza:[19,20,21,22,23,24].reduce((s,i)=>s+(sdItems[i]||0),0)/6,
+      sd_corpo: [1,2,3,4,5,6,7,8].reduce((s,i)=>s+(sdItems[i]||0),0)/8,
+      sd_mente: [9,10,11,12,13,14,15,16].reduce((s,i)=>s+(sdItems[i]||0),0)/8,
+      sd_sociale: [17,18,19,20,21,22,23,24].reduce((s,i)=>s+(sdItems[i]||0),0)/8,
+      sd_esperien: [25,26,27,28,29,30,31,32].reduce((s,i)=>s+(sdItems[i]||0),0)/8,
       // Timing (seconds per phase)
       time_sex:       durRef.current.sex       || 0,
       time_identity:  durRef.current.identity  || 0,
@@ -1051,7 +1068,7 @@ function App(){
           nextLabel={busy?"Invio in corso…":"Invia ✓"}
         />
         <p style={{fontSize:11,color:"#b0cac9",textAlign:"center",marginTop:10}}>
-          Rispondi a tutte e 24 le affermazioni per procedere
+          Rispondi a tutte e 32 le affermazioni per procedere
         </p>
       </div>
     </div>
@@ -1078,13 +1095,64 @@ function App(){
     const soirTotal=(behNorm+attNorm+desNorm)/3; // 0-1
     const soirPct=Math.round(soirTotal*100);
 
-    /* ── Profile labels (from .md) ── */
-    const profileO=bO>3?{name:"L'Esploratore di Orizzonti",desc:"Ami le novità, l'arte e i modi di pensare non convenzionali."}:{name:"Il Custode della Tradizione",desc:"Apprezzi la concretezza, la routine e ciò che è collaudato."};
-    const profileC=bC>3?{name:"L'Architetto del Quotidiano",desc:"Organizzato, affidabile e focalizzato sui propri obiettivi."}:{name:"Lo Spirito Spontaneo",desc:"Flessibile, vive il momento e non ama troppo i piani rigidi."};
-    const profileE=bE>3?{name:"L'Anima Sociale",desc:"Energico, entusiasta e ricaricato dal contatto con gli altri."}:{name:"L'Osservatore Riflessivo",desc:"Indipendente, calmo e amante degli spazi di tranquillità."};
-    const profileA=bA>3?{name:"Il Tessitore di Armonia",desc:"Empatico, generoso e sempre pronto a collaborare."}:{name:"Il Pensatore Critico",desc:"Schietto, analitico e non ha paura di dire la sua voce fuori dal coro."};
-    const profileN=bN>3?{name:"L'Animo Profondo",desc:"Reattivo alle emozioni, intuitivo e molto sensibile all'ambiente."}:{name:"L'Ancora di Calma",desc:"Resiliente, emotivamente stabile e difficile da turbare."};
-    const profileSOI=soirTotal>0.5?{name:"L'Esploratore di Esperienze",desc:"Vivi la sessualità con apertura e curiosità verso le diverse sfumature dell'attrazione. Per te, il desiderio può essere un'avventura a sé stante, indipendente dal coinvolgimento romantico."}:{name:"Il Cercatore di Legami",desc:"Per te il desiderio e l'intimità fioriscono meglio all'interno di un legame emotivo profondo e duraturo. La scintilla scatta quando senti una forte connessione personale."};
+    /* ── Profile labels ── */
+    const lvl=(v,lo,hi)=>v>hi?"high":v>=lo?"mid":"low";
+    const BFI_P={
+      O:{
+        low:  {name:"Il Custode della Tradizione",desc:"Apprezzi la concretezza, la routine e ciò che è collaudato. Ti senti a tuo agio in ambienti familiari."},
+        mid:  {name:"L'Esploratore Selettivo",desc:"Sei aperto alle novità e alle idee creative, ma mantieni sempre un forte senso pratico e un legame con la realtà."},
+        high: {name:"L'Esploratore di Orizzonti",desc:"Ami le novità, l'arte e i modi di pensare non convenzionali. La tua curiosità non ha confini."},
+      },
+      C:{
+        low:  {name:"Lo Spirito Spontaneo",desc:"Flessibile e amante dell'improvvisazione, preferisci vivere il momento piuttosto che seguire tabelle di marcia rigide."},
+        mid:  {name:"Il Metodico Flessibile",desc:"Sei affidabile e organizzato, ma sai mettere da parte i piani quando la vita richiede un tocco di spontaneità."},
+        high: {name:"L'Architetto del Quotidiano",desc:"Estremamente organizzato, affidabile e focalizzato sui tuoi obiettivi. Nulla è lasciato al caso."},
+      },
+      E:{
+        low:  {name:"L'Osservatore Riflessivo",desc:"Indipendente e calmo, preferisci i piccoli gruppi o i momenti di solitudine per ricaricare le tue energie."},
+        mid:  {name:"Il Socializzatore Equilibrato",desc:"Ti piace la compagnia e sai essere brillante, ma apprezzi anche i tuoi spazi di tranquillità e riflessione."},
+        high: {name:"L'Anima Sociale",desc:"Energico ed entusiasta, sei una calamita per gli altri e ti ricarichi stando al centro dell'azione."},
+      },
+      A:{
+        low:  {name:"Il Pensatore Critico",desc:"Schietto, analitico e competitivo. Non hai paura di sfidare le opinioni altrui per cercare la verità."},
+        mid:  {name:"Il Mediatore Pratico",desc:"Sei cooperativo e amichevole, ma sai porre confini chiari e far valere le tue ragioni quando serve."},
+        high: {name:"Il Tessitore di Armonia",desc:"Empatico, generoso e sempre pronto a collaborare. La tua priorità è il benessere del gruppo e la pace."},
+      },
+      N:{
+        low:  {name:"L'Ancora di Calma",desc:"Resiliente e stabile, affronti le sfide con imperturbabilità e mantieni la calma anche sotto pressione."},
+        mid:  {name:"Il Reattivo Equilibrato",desc:"Vivi le emozioni in modo autentico e intenso, ma possiedi gli strumenti per gestirle senza farti travolgere."},
+        high: {name:"L'Animo Sensibile",desc:"Profondo e intuitivo, sei molto reattivo agli stimoli ambientali e possiedi una grande ricchezza emotiva."},
+      },
+    };
+    const profileO=BFI_P.O[lvl(bO,2.5,3.5)];
+    const profileC=BFI_P.C[lvl(bC,2.5,3.5)];
+    const profileE=BFI_P.E[lvl(bE,2.5,3.5)];
+    const profileA=BFI_P.A[lvl(bA,2.5,3.5)];
+    const profileN=BFI_P.N[lvl(bN,2.5,3.5)];
+    const SOI_GLOBAL={
+      low:  {name:"Il Cercatore di Legami",desc:"Per te il desiderio e l'intimità fioriscono meglio all'interno di un legame emotivo profondo e duraturo."},
+      mid:  {name:"L'Equilibrista del Cuore",desc:"Ti muovi tra il desiderio di stabilità e l'apertura a nuove sensazioni. La tua scintilla dipende molto dal contesto."},
+      high: {name:"L'Esploratore di Esperienze",desc:"Vivi la sessualità con apertura e curiosità, considerandola un'avventura autonoma dal coinvolgimento romantico."},
+    };
+    const SOI_BEH={
+      low:  {name:"Percorso Intimo",desc:"Esperienze focalizzate su relazioni stabili e durature."},
+      mid:  {name:"Storia Dinamica",desc:"Un equilibrio tra relazioni lunghe e qualche esperienza di scoperta."},
+      high: {name:"Ampio Bagaglio",desc:"Una storia ricca di esperienze diverse e numerosi incontri."},
+    };
+    const SOI_ATT={
+      low:  {name:"L'Ideale Romantico",desc:"Credi fermamente che il sesso richieda sempre una base di amore."},
+      mid:  {name:"Visione Situazionale",desc:"Valuti caso per caso: l'amore è importante, ma non sempre indispensabile."},
+      high: {name:"Libertà di Visione",desc:"Vedi piacere e impegno emotivo come due binari che possono viaggiare separati."},
+    };
+    const SOI_DES={
+      low:  {name:"Desiderio Focalizzato",desc:"La tua attrazione si accende raramente o solo per partner specifici."},
+      mid:  {name:"Curiosità Attiva",desc:"Provi attrazione occasionale e fantasie verso persone diverse con moderata frequenza."},
+      high: {name:"Energia Pulsante",desc:"Vivi il desiderio e l'attrazione fisica come una forza frequente, intensa e vitale."},
+    };
+    const profileSOI    =SOI_GLOBAL[lvl(soirTotal,0.33,0.67)];
+    const profileSOIbeh =SOI_BEH[lvl(behNorm,0.33,0.67)];
+    const profileSOIatt =SOI_ATT[lvl(attNorm,0.33,0.67)];
+    const profileSOIdes =SOI_DES[lvl(desNorm,0.33,0.67)];
 
     /* ── ScoreBar component ── */
     const ScoreBar=({title,leftLbl,rightLbl,pct,color=TD})=>(
@@ -1263,13 +1331,21 @@ function App(){
           <div style={{background:"#fff8f0",borderRadius:10,padding:"12px 14px",
             borderLeft:"3px solid #c87040"}}>
             <div style={{fontSize:10,color:"#c87040",fontWeight:"700",letterSpacing:1,marginBottom:3}}>
-              ORIENTAMENTO SOCIOSESSUALE
+              ORIENTAMENTO SOCIOSESSUALE — GLOBALE
             </div>
-            <div style={{fontSize:13,fontWeight:"600",color:"#3a5655",marginBottom:3}}>
-              {profileSOI.name}
-            </div>
+            <div style={{fontSize:13,fontWeight:"600",color:"#3a5655",marginBottom:3}}>{profileSOI.name}</div>
             <div style={{fontSize:12,color:"#7a9a99",lineHeight:1.55}}>{profileSOI.desc}</div>
           </div>
+          {[{lbl:"COMPORTAMENTO",p:profileSOIbeh,c:"#d08830"},
+            {lbl:"ATTEGGIAMENTO",p:profileSOIatt,c:"#b86820"},
+            {lbl:"DESIDERIO",    p:profileSOIdes,c:"#9a5010"}].map(({lbl,p,c})=>(
+            <div key={lbl} style={{background:"#fffaf4",borderRadius:10,padding:"12px 14px",
+              borderLeft:`3px solid ${c}`,marginTop:8}}>
+              <div style={{fontSize:9,color:c,fontWeight:"700",letterSpacing:1,marginBottom:3}}>SOI-R — {lbl}</div>
+              <div style={{fontSize:13,fontWeight:"600",color:"#3a5655",marginBottom:3}}>{p.name}</div>
+              <div style={{fontSize:12,color:"#7a9a99",lineHeight:1.55}}>{p.desc}</div>
+            </div>
+          ))}
         </div>
       </div>
 
